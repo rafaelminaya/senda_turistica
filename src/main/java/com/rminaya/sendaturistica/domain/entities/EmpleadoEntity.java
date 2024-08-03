@@ -7,11 +7,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity
-@Table(name = "empleados")
 @NoArgsConstructor
 @Getter
 @Setter
+
+@Entity
+@Table(name = "empleados")
 public class EmpleadoEntity extends ClienteEntity {
 
     @Column(nullable = false, length = 45)

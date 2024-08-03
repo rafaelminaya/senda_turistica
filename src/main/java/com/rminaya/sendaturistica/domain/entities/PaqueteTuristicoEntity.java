@@ -14,11 +14,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity
-@Table(name = "paquetes_turisticos")
 @NoArgsConstructor
 @Getter
 @Setter
+
+@Entity
+@Table(name = "paquetes_turisticos")
 public class PaqueteTuristicoEntity {
 
     @Id

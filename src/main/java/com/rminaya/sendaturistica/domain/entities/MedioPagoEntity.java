@@ -10,11 +10,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity
-@Table(name = "medios_pago")
 @NoArgsConstructor
 @Getter
 @Setter
+
+@Entity
+@Table(name = "medios_pago")
 public class MedioPagoEntity {
 
     @Id
