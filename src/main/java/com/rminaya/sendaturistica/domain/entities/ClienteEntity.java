@@ -49,4 +49,18 @@ public class ClienteEntity {
 
     @Column(nullable = false, length = 50)
     private String email;
+
+    @Override
+    public String toString() {
+        return "ClienteEntity{" +
+                "idCliente=" + idCliente +
+                ", nombre='" + nombre + '\'' +
+                ", apellido='" + apellido + '\'' +
+                ", direccion='" + direccion + '\'' +
+                ", dni='" + dni + '\'' +
+                ", fechaNacimiento=" + fechaNacimiento +
+                ", celular='" + celular + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }
