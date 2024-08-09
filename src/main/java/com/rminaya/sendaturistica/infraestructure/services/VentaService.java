@@ -1,7 +1,7 @@
 package com.rminaya.sendaturistica.infraestructure.services;
 
-import com.rminaya.sendaturistica.api.models.requests.VentaResponse;
-import com.rminaya.sendaturistica.api.models.responses.VentaRequest;
+import com.rminaya.sendaturistica.api.models.responses.VentaResponse;
+import com.rminaya.sendaturistica.api.models.requests.VentaRequest;
 import com.rminaya.sendaturistica.infraestructure.abstract_services.IVentaService;
 
 public class VentaService implements IVentaService {

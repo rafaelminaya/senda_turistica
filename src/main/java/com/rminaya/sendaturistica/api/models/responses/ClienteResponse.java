@@ -1,4 +1,4 @@
-package com.rminaya.sendaturistica.api.models.requests;
+package com.rminaya.sendaturistica.api.models.responses;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

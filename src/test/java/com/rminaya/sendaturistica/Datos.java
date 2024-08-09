@@ -1,6 +1,6 @@
 package com.rminaya.sendaturistica;
 
-import com.rminaya.sendaturistica.api.models.requests.ClienteResponse;
+import com.rminaya.sendaturistica.api.models.responses.ClienteResponse;
 import com.rminaya.sendaturistica.domain.entities.ClienteEntity;
 import com.rminaya.sendaturistica.util.enums.Tables;
 import com.rminaya.sendaturistica.util.exceptions.IdNotFoundException;

@@ -1,7 +1,7 @@
 package com.rminaya.sendaturistica.infraestructure.services;
 
-import com.rminaya.sendaturistica.api.models.requests.PaqueteTuristicoResponse;
-import com.rminaya.sendaturistica.api.models.responses.PaqueteTuristicoRequest;
+import com.rminaya.sendaturistica.api.models.responses.PaqueteTuristicoResponse;
+import com.rminaya.sendaturistica.api.models.requests.PaqueteTuristicoRequest;
 import com.rminaya.sendaturistica.infraestructure.abstract_services.IPaqueteTuristicoService;
 
 public class PaqueteTuristicoService implements IPaqueteTuristicoService {

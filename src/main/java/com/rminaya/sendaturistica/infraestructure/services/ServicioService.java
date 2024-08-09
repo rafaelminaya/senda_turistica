@@ -1,7 +1,7 @@
 package com.rminaya.sendaturistica.infraestructure.services;
 
-import com.rminaya.sendaturistica.api.models.requests.ServicioResponse;
-import com.rminaya.sendaturistica.api.models.responses.ServicioRequest;
+import com.rminaya.sendaturistica.api.models.responses.ServicioResponse;
+import com.rminaya.sendaturistica.api.models.requests.ServicioRequest;
 import com.rminaya.sendaturistica.infraestructure.abstract_services.IServicioService;
 
 public class ServicioService implements IServicioService {

@@ -1,6 +1,6 @@
 package com.rminaya.sendaturistica.infraestructure.mappers;
 
-import com.rminaya.sendaturistica.api.models.requests.ClienteResponse;
+import com.rminaya.sendaturistica.api.models.responses.ClienteResponse;
 import com.rminaya.sendaturistica.domain.entities.ClienteEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

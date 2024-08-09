@@ -1,7 +1,7 @@
 package com.rminaya.sendaturistica.infraestructure.services;
 
-import com.rminaya.sendaturistica.api.models.requests.ClienteResponse;
-import com.rminaya.sendaturistica.api.models.responses.ClienteRequest;
+import com.rminaya.sendaturistica.api.models.responses.ClienteResponse;
+import com.rminaya.sendaturistica.api.models.requests.ClienteRequest;
 import com.rminaya.sendaturistica.domain.entities.ClienteEntity;
 import com.rminaya.sendaturistica.domain.repositories.ClienteRepository;
 import com.rminaya.sendaturistica.infraestructure.abstract_services.IClienteService;

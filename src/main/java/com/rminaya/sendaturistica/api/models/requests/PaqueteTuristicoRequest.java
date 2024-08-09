@@ -1,4 +1,4 @@
 package com.rminaya.sendaturistica.api.models.requests;
 
-public class PaqueteTuristicoResponse {
+public class PaqueteTuristicoRequest {
 }
