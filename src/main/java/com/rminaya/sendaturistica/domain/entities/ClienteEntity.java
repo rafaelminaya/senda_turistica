@@ -1,28 +1,22 @@
 package com.rminaya.sendaturistica.domain.entities;
 
-import java.time.LocalDate;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Inheritance;
-import jakarta.persistence.InheritanceType;
-import jakarta.persistence.Table;
+import com.rminaya.sendaturistica.domain.audit.AuditableEntity;
+import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
+
+import java.time.LocalDate;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 @Getter
 @Setter
 
 @Entity
 @Table(name = "clientes")
 @Inheritance(strategy = InheritanceType.JOINED)
-
-public class ClienteEntity {
+public class ClienteEntity extends AuditableEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,22 +39,11 @@ public class ClienteEntity {
     private LocalDate fechaNacimiento;
 
     @Column(nullable = false, length = 45)
+    private String nacionalidad;
+
+    @Column(nullable = false, length = 45)
     private String celular;
 
     @Column(nullable = false, length = 50)
     private String email;
-
-    @Override
-    public String toString() {
-        return "ClienteEntity{" +
-                "idCliente=" + idCliente +
-                ", nombre='" + nombre + '\'' +
-                ", apellido='" + apellido + '\'' +
-                ", direccion='" + direccion + '\'' +
-                ", dni='" + dni + '\'' +
-                ", fechaNacimiento=" + fechaNacimiento +
-                ", celular='" + celular + '\'' +
-                ", email='" + email + '\'' +
-                '}';
-    }
 }

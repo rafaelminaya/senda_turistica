@@ -1,5 +1,6 @@
 package com.rminaya.sendaturistica.domain.repositories;
 
+import com.rminaya.sendaturistica.Datos;
 import com.rminaya.sendaturistica.domain.entities.ClienteEntity;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -9,8 +10,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -36,4 +36,28 @@ class ClienteRepositoryTest {
         assertTrue(cliente.isEmpty());
     }
 
+    @Test
+    @DisplayName("save() - Guarda un cliente")
+    void testSave() {
+        ClienteEntity clienteFromDB = this.clienteRepository.save(Datos.CLIENTE);
+        Optional<ClienteEntity> cliente = this.clienteRepository.findById(clienteFromDB.getIdCliente());
+        assertTrue(cliente.isPresent());
+        assertEquals("Carlos", cliente.get().getNombre());
+        assertEquals("Rojas", cliente.get().getApellido());
+    }
+
+    @Test
+    @DisplayName("findByActivoTrue() - Works")
+    void testFindByIdActivoTrue() {
+        Optional<ClienteEntity> cliente = this.clienteRepository.findByActivoTrueAndIdCliente(1);
+        assertTrue(cliente.isPresent());
+        assertEquals(true, cliente.get().getActivo());
+    }
+
+    @Test
+    @DisplayName("findByActivoTrue() - Doesn't Work")
+    void testFindByIdActivoTrueFailed() {
+        Optional<ClienteEntity> cliente = this.clienteRepository.findByActivoTrueAndIdCliente(15);
+        assertTrue(cliente.isEmpty());
+    }
 }

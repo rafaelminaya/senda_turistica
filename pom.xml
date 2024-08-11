@@ -78,7 +78,12 @@
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
             <version>2.6.0</version>
         </dependency>
-
+        <!-- Dependencia para que en el testing de controllers,
+        reconozca datos entrantes del tipo LocalDate, LocalDateTime entre otros. -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

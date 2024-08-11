@@ -14,22 +14,22 @@ INSERT INTO tipos_servicio (nombre) VALUES
 ('Excursiones'),
 ('Entradas a eventos');
 
-INSERT INTO clientes (nombre, apellido, direccion, dni, fecha_nacimiento, nacionalidad, celular, email) VALUES 
-('Carlos', 'Heredia', 'Av. Rosales 1293', '38467245','1985-07-12', 'Peruana', '934854732', 'carlos.heredia@gmail.com'),
-('Fabiola', 'Juarez', 'Av. Arequipa 3321', '47829456', '1992-04-06', 'Peruana', '984937122', 'fabiola.juarez@gmail.com'),
-('Luis', 'Tuesta', 'Jr. Gardecias 293', '67892373', '1993-11-22', 'Peruana', '973843726', 'luis.tuesta@gmail.com'),
-('Paola', 'Bernal', 'Calle La Paz 183', '63783201', '1996-06-27', 'Peruana', '974152637', 'paola.bernal@gmail.com'),
-('Omar', 'Aviles', 'Jr. Camino Real 1723', '57839450', '1993-10-05', 'Peruana', '983172317', 'omar.aviles@gmail.com'),
-('Eba', 'Downage', '839 Oakridge Trail', '4300245665', '1994-10-18', 'United States', '8326163753', 'edownage0@walmart.com'),
-('Callie', 'Sammonds', '7366 Fuller Road', '8816370181', '1995-03-16', 'Kosovo', '6435870795', 'csammonds1@lycos.com'),
-('Ashly', 'Kermott', '1268 Sachtjen Avenue', '8871014545', '1992-08-12', 'Philippines', '3133943279', 'akermott2@com.com'),
-('Donetta', 'Champley', '43 Boyd Drive', '0213124726', '1997-08-11', 'Brazil', '6986949258', 'dchampley3@mayoclinic.com'),
-('Seward', 'Danes', '64089 Anzinger Alley', '9932158704', '1997-01-23', 'Russia', '2458915912', 'sdanes4@phoca.cz'),
-('Rubin', 'Admans', '33008 Annamark Hill', '5418464671', '1995-04-16', 'Portugal', '2333805347', 'radmans5@livejournal.com'),
-('Norma', 'Dorbin', '93 Moland Avenue', '4993195532', '1993-07-05', 'Indonesia', '1955606813', 'ndorbin6@senate.gov'),
-('Town', 'Jukes', '584 Carioca Court', '1251108873', '1995-12-26', 'Czech Republic', '8742333982', 'tjukes7@mail.ru'),
-('Joelynn', 'Divill', '5 David Trail', '1390476502', '1995-11-14', 'Finland', '1939334362', 'jdivill8@seesaa.net'),
-('Evelina', 'de Clercq', '649 Mallard Circle', '5241368361', '1991-11-15', 'Brazil', '3222722262', 'edeclercq9@gnu.org');
+INSERT INTO clientes (nombre, apellido, direccion, dni, fecha_nacimiento, nacionalidad, celular, email, activo, created_date, modified_date) VALUES
+('Carlos', 'Heredia', 'Av. Rosales 1293', '38467245','1985-07-12', 'Peruana', '934854732', 'carlos.heredia@gmail.com', 1, NOW(), NOW()),
+('Fabiola', 'Juarez', 'Av. Arequipa 3321', '47829456', '1992-04-06', 'Peruana', '984937122', 'fabiola.juarez@gmail.com', 1, NOW(), NOW()),
+('Luis', 'Tuesta', 'Jr. Gardecias 293', '67892373', '1993-11-22', 'Peruana', '973843726', 'luis.tuesta@gmail.com', 1, NOW(), NOW()),
+('Paola', 'Bernal', 'Calle La Paz 183', '63783201', '1996-06-27', 'Peruana', '974152637', 'paola.bernal@gmail.com', 1, NOW(), NOW()),
+('Omar', 'Aviles', 'Jr. Camino Real 1723', '57839450', '1993-10-05', 'Peruana', '983172317', 'omar.aviles@gmail.com', 1, NOW(), NOW()),
+('Eba', 'Downage', '839 Oakridge Trail', '4300245665', '1994-10-18', 'United States', '8326163753', 'edownage0@walmart.com', 1, NOW(), NOW()),
+('Callie', 'Sammonds', '7366 Fuller Road', '8816370181', '1995-03-16', 'Kosovo', '6435870795', 'csammonds1@lycos.com', 1, NOW(), NOW()),
+('Ashly', 'Kermott', '1268 Sachtjen Avenue', '8871014545', '1992-08-12', 'Philippines', '3133943279', 'akermott2@com.com', 1, NOW(), NOW()),
+('Donetta', 'Champley', '43 Boyd Drive', '0213124726', '1997-08-11', 'Brazil', '6986949258', 'dchampley3@mayoclinic.com', 1, NOW(), NOW()),
+('Seward', 'Danes', '64089 Anzinger Alley', '9932158704', '1997-01-23', 'Russia', '2458915912', 'sdanes4@phoca.cz', 1, NOW(), NOW()),
+('Rubin', 'Admans', '33008 Annamark Hill', '5418464671', '1995-04-16', 'Portugal', '2333805347', 'radmans5@livejournal.com', 1, NOW(), NOW()),
+('Norma', 'Dorbin', '93 Moland Avenue', '4993195532', '1993-07-05', 'Indonesia', '1955606813', 'ndorbin6@senate.gov', 1, NOW(), NOW()),
+('Town', 'Jukes', '584 Carioca Court', '1251108873', '1995-12-26', 'Czech Republic', '8742333982', 'tjukes7@mail.ru', 1, NOW(), NOW()),
+('Joelynn', 'Divill', '5 David Trail', '1390476502', '1995-11-14', 'Finland', '1939334362', 'jdivill8@seesaa.net', 0, NOW(), NOW()),
+('Evelina', 'de Clercq', '649 Mallard Circle', '5241368361', '1991-11-15', 'Brazil', '3222722262', 'edeclercq9@gnu.org', 0, NOW(), NOW());
 
 INSERT INTO empleados (id_cliente, cargo, sueldo) VALUES 
 (1, 'Administrador', 6000),

@@ -2,6 +2,7 @@ package com.rminaya.sendaturistica.infraestructure.services;
 
 import com.rminaya.sendaturistica.Datos;
 import com.rminaya.sendaturistica.api.models.responses.ClienteResponse;
+import com.rminaya.sendaturistica.domain.entities.ClienteEntity;
 import com.rminaya.sendaturistica.domain.repositories.ClienteRepository;
 import com.rminaya.sendaturistica.infraestructure.abstract_services.IClienteService;
 import com.rminaya.sendaturistica.util.exceptions.IdNotFoundException;
@@ -30,15 +31,31 @@ class ClienteServiceTest {
     private static final Integer INVALID_ID = 1000;
 
     @Test
+    @DisplayName("create() - Deberia crear un cliente")
     void testCreate() {
+        // GIVEN
+        when(this.clienteRepository.save(any())).then(invocationOnMock -> {
+            ClienteEntity cliente = invocationOnMock.getArgument(0);
+            cliente.setIdCliente(100);
+            cliente.setNombre("Carlos");
+            cliente.setApellido("Rojas");
+            return cliente;
+        });
+        // WHEN
+        ClienteResponse cliente = this.clienteService.create(Datos.CLIENTE_REQUEST);
+        assertEquals(100, cliente.getIdCliente());
+        assertEquals("Carlos", cliente.getNombre());
+        assertEquals("Rojas", cliente.getApellido());
+        // THEN
+        verify(this.clienteRepository, times(1)).save(any());
     }
 
     @Test
-    @DisplayName("read() - Encuentra al cliente con ID 1")
+    @DisplayName("read() - Encuentra al cliente con ID valido")
     void testRead() {
         // GIVEN
         //when(this.clienteRepository.findById(1)).thenReturn(Optional.of(Datos.CLIENTE));
-        when(this.clienteRepository.findById(VALID_ID)).thenReturn(Optional.of(Datos.CLIENTE));
+        when(this.clienteRepository.findByActivoTrueAndIdCliente(VALID_ID)).thenReturn(Optional.of(Datos.CLIENTE));
         // WHEN
         ClienteResponse cliente1 = this.clienteService.read(VALID_ID);
         ClienteResponse cliente2 = this.clienteService.read(VALID_ID);
@@ -49,25 +66,46 @@ class ClienteServiceTest {
         assertEquals("Carlos", cliente1.getNombre());
         assertEquals("Rojas", cliente2.getApellido());
 
-        verify(this.clienteRepository, times(2)).findById(VALID_ID);
+        verify(this.clienteRepository, times(2)).findByActivoTrueAndIdCliente(VALID_ID);
     }
 
     @Test
     @DisplayName("read() - Debería fallar la busqueda de cliente con un ID inexistente")
     void testReadException() {
         // GIVEN
-        when(this.clienteRepository.findById(INVALID_ID)).thenThrow(Datos.CLIENTE_INVALID);
+        when(this.clienteRepository.findByActivoTrueAndIdCliente(INVALID_ID)).thenThrow(Datos.CLIENTE_INVALID);
         // WHEN y THEN juntos
         assertThrows(IdNotFoundException.class, () -> Optional.of(this.clienteService.read(INVALID_ID)));
         //THEN
-        verify(this.clienteRepository, times(1)).findById(anyInt());
+        verify(this.clienteRepository, times(1)).findByActivoTrueAndIdCliente(anyInt());
     }
 
     @Test
+    @DisplayName("update() - Deberia actualizar un cliente")
     void testUpdate() {
+        when(this.clienteRepository.findByActivoTrueAndIdCliente(anyInt())).thenReturn(Optional.of(Datos.CLIENTE));
+        when(this.clienteRepository.save(any(ClienteEntity.class))).thenReturn(Datos.CLIENTE);
+
+        ClienteResponse cliente = this.clienteService.update(Datos.CLIENTE_REQUEST, VALID_ID);
+        assertEquals(Datos.CLIENTE_RESPONSE, cliente);
+
+        verify(this.clienteRepository, times(1)).findByActivoTrueAndIdCliente(anyInt());
+        verify(this.clienteRepository, times(1)).save(any(ClienteEntity.class));
     }
 
     @Test
+    @DisplayName("delete() - Elimina un cliente por su id")
     void testDelete() {
+        when(this.clienteRepository.findByActivoTrueAndIdCliente(anyInt())).thenReturn(Optional.of(Datos.CLIENTE));
+        when(this.clienteRepository.save(any(ClienteEntity.class))).then(invocationOnMock -> {
+            ClienteEntity clienteUpdated = invocationOnMock.getArgument(0);
+            clienteUpdated.setActivo(false);
+            return clienteUpdated;
+        });
+
+        this.clienteService.delete(VALID_ID);
+
+        verify(this.clienteRepository, times(1)).findByActivoTrueAndIdCliente(anyInt());
+        verify(this.clienteRepository, times(1)).save(any(ClienteEntity.class));
     }
 }

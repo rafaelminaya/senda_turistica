@@ -23,6 +23,9 @@ CREATE TABLE clientes (
   nacionalidad VARCHAR(45) NOT NULL,
   celular VARCHAR(45) NOT NULL,
   email VARCHAR(50) NOT NULL,
+  activo TINYINT NOT NULL,
+  created_date DATETIME NOT NULL,
+  modified_date DATETIME NOT NULL,
   CONSTRAINT pk_clientes PRIMARY KEY (id_cliente)
   );
 

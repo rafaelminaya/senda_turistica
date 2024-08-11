@@ -16,6 +16,7 @@ public class ClienteResponse {
     private String direccion;
     private String dni;
     private String fechaNacimiento;
+    private String nacionalidad;
     private String celular;
     private String email;
 }
