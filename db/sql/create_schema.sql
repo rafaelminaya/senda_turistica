@@ -36,6 +36,9 @@ CREATE TABLE clientes (
 CREATE TABLE tipos_servicio (
   id_tipo_servicio INT NOT NULL AUTO_INCREMENT,
   nombre VARCHAR(45) NOT NULL,
+  activo TINYINT NOT NULL,
+  created_date DATETIME NOT NULL,
+  modified_date DATETIME NOT NULL,
   CONSTRAINT pk_tipos_servicio PRIMARY KEY (id_tipo_servicio));
 
 
@@ -59,6 +62,9 @@ CREATE TABLE servicios (
   descripcion_breve VARCHAR(45) NOT NULL,
   fecha_servicio DATETIME NOT NULL,
   costo_servicio DECIMAL(6,2) NOT NULL,
+  activo TINYINT NOT NULL,
+  created_date DATETIME NOT NULL,
+  modified_date DATETIME NOT NULL,
   CONSTRAINT pk_servicios PRIMARY KEY (id_servicio),
   INDEX fk_servicio_tipo_servicio1_idx (id_tipo_servicio ASC) VISIBLE,
   INDEX fk_servicios_paquetes_turisticos1_idx (id_paquete_turistico ASC) VISIBLE,

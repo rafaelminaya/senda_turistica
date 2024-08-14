@@ -55,7 +55,7 @@ class ClienteServiceTest {
     void testRead() {
         // GIVEN
         //when(this.clienteRepository.findById(1)).thenReturn(Optional.of(Datos.CLIENTE));
-        when(this.clienteRepository.findByActivoTrueAndIdCliente(VALID_ID)).thenReturn(Optional.of(Datos.CLIENTE));
+        when(this.clienteRepository.findFirstByActivoTrueAndIdCliente(VALID_ID)).thenReturn(Optional.of(Datos.CLIENTE_ENTITY));
         // WHEN
         ClienteResponse cliente1 = this.clienteService.read(VALID_ID);
         ClienteResponse cliente2 = this.clienteService.read(VALID_ID);
@@ -66,37 +66,37 @@ class ClienteServiceTest {
         assertEquals("Carlos", cliente1.getNombre());
         assertEquals("Rojas", cliente2.getApellido());
 
-        verify(this.clienteRepository, times(2)).findByActivoTrueAndIdCliente(VALID_ID);
+        verify(this.clienteRepository, times(2)).findFirstByActivoTrueAndIdCliente(VALID_ID);
     }
 
     @Test
     @DisplayName("read() - Debería fallar la busqueda de cliente con un ID inexistente")
     void testReadException() {
         // GIVEN
-        when(this.clienteRepository.findByActivoTrueAndIdCliente(INVALID_ID)).thenThrow(Datos.CLIENTE_INVALID);
+        when(this.clienteRepository.findFirstByActivoTrueAndIdCliente(INVALID_ID)).thenThrow(Datos.CLIENTE_INVALID);
         // WHEN y THEN juntos
         assertThrows(IdNotFoundException.class, () -> Optional.of(this.clienteService.read(INVALID_ID)));
         //THEN
-        verify(this.clienteRepository, times(1)).findByActivoTrueAndIdCliente(anyInt());
+        verify(this.clienteRepository, times(1)).findFirstByActivoTrueAndIdCliente(anyInt());
     }
 
     @Test
     @DisplayName("update() - Deberia actualizar un cliente")
     void testUpdate() {
-        when(this.clienteRepository.findByActivoTrueAndIdCliente(anyInt())).thenReturn(Optional.of(Datos.CLIENTE));
-        when(this.clienteRepository.save(any(ClienteEntity.class))).thenReturn(Datos.CLIENTE);
+        when(this.clienteRepository.findFirstByActivoTrueAndIdCliente(anyInt())).thenReturn(Optional.of(Datos.CLIENTE_ENTITY));
+        when(this.clienteRepository.save(any(ClienteEntity.class))).thenReturn(Datos.CLIENTE_ENTITY);
 
         ClienteResponse cliente = this.clienteService.update(Datos.CLIENTE_REQUEST, VALID_ID);
         assertEquals(Datos.CLIENTE_RESPONSE, cliente);
 
-        verify(this.clienteRepository, times(1)).findByActivoTrueAndIdCliente(anyInt());
+        verify(this.clienteRepository, times(1)).findFirstByActivoTrueAndIdCliente(anyInt());
         verify(this.clienteRepository, times(1)).save(any(ClienteEntity.class));
     }
 
     @Test
     @DisplayName("delete() - Elimina un cliente por su id")
     void testDelete() {
-        when(this.clienteRepository.findByActivoTrueAndIdCliente(anyInt())).thenReturn(Optional.of(Datos.CLIENTE));
+        when(this.clienteRepository.findFirstByActivoTrueAndIdCliente(anyInt())).thenReturn(Optional.of(Datos.CLIENTE_ENTITY));
         when(this.clienteRepository.save(any(ClienteEntity.class))).then(invocationOnMock -> {
             ClienteEntity clienteUpdated = invocationOnMock.getArgument(0);
             clienteUpdated.setActivo(false);
@@ -105,7 +105,7 @@ class ClienteServiceTest {
 
         this.clienteService.delete(VALID_ID);
 
-        verify(this.clienteRepository, times(1)).findByActivoTrueAndIdCliente(anyInt());
+        verify(this.clienteRepository, times(1)).findFirstByActivoTrueAndIdCliente(anyInt());
         verify(this.clienteRepository, times(1)).save(any(ClienteEntity.class));
     }
 }

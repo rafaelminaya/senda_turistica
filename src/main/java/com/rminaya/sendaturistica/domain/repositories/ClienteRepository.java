@@ -6,5 +6,5 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.Optional;
 
 public interface ClienteRepository extends CrudRepository<ClienteEntity, Integer> {
-    Optional<ClienteEntity> findByActivoTrueAndIdCliente(Integer id);
+    Optional<ClienteEntity> findFirstByActivoTrueAndIdCliente(Integer id);
 }

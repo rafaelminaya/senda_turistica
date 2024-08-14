@@ -48,7 +48,7 @@ public class ClienteService implements IClienteService {
     @Transactional(readOnly = true)
     public ClienteResponse read(Integer idCliente) {
 
-        ClienteEntity clienteFromDB = this.clienteRepository.findByActivoTrueAndIdCliente(idCliente)
+        ClienteEntity clienteFromDB = this.clienteRepository.findFirstByActivoTrueAndIdCliente(idCliente)
                 .orElseThrow(() -> new IdNotFoundException(Tables.clientes.name(), idCliente));
 
         return this.clienteMapper.toCliente(clienteFromDB);
@@ -58,7 +58,7 @@ public class ClienteService implements IClienteService {
     @Transactional
     public ClienteResponse update(ClienteRequest clienteRequest, Integer idCliente) {
 
-        ClienteEntity clienteToUpdate = this.clienteRepository.findByActivoTrueAndIdCliente(idCliente)
+        ClienteEntity clienteToUpdate = this.clienteRepository.findFirstByActivoTrueAndIdCliente(idCliente)
                 .orElseThrow(() -> new IdNotFoundException(Tables.clientes.name(), idCliente));
 
         clienteToUpdate.setNombre(clienteRequest.getNombre());
@@ -77,7 +77,7 @@ public class ClienteService implements IClienteService {
     @Override
     @Transactional
     public void delete(Integer idCliente) {
-        ClienteEntity clienteToDelete = this.clienteRepository.findByActivoTrueAndIdCliente(idCliente)
+        ClienteEntity clienteToDelete = this.clienteRepository.findFirstByActivoTrueAndIdCliente(idCliente)
                 .orElseThrow(() -> new IdNotFoundException(Tables.clientes.name(), idCliente));
 
         clienteToDelete.setActivo(false);

@@ -2,6 +2,7 @@ package com.rminaya.sendaturistica.domain.entities;
 
 import java.time.LocalDateTime;
 
+import com.rminaya.sendaturistica.domain.audit.AuditableEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,14 +14,16 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 @NoArgsConstructor
 @Getter
 @Setter
+@SuperBuilder
 
 @Entity
 @Table(name = "servicios")
-public class ServicioEntity {
+public class ServicioEntity extends AuditableEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,7 +43,7 @@ public class ServicioEntity {
     private Double costoServicio;
     // RELACIONES
     @ManyToOne
-    @JoinColumn(name = "id_tipo_servicio", referencedColumnName = "id_tipo_servicio", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = "id_tipo_servicio", referencedColumnName = "id_tipo_servicio", nullable = false)
     private TipoServicioEntity tipoServicio;
 
     @ManyToOne

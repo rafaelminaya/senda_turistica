@@ -31,7 +31,6 @@ public class AuditableEntity {
 
     @PrePersist
     public void prePersist() {
-        System.out.println("prePersist");
         activo = true;
         modifiedDate = LocalDateTime.now();
         if (createdDate == null) {
@@ -41,7 +40,6 @@ public class AuditableEntity {
 
     @PreUpdate
     public void preUpdate() {
-        System.out.println("preUpdate");
         this.modifiedDate = LocalDateTime.now();
     }
 }

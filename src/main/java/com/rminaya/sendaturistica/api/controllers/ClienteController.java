@@ -68,13 +68,11 @@ public class ClienteController {
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = ErrorResponse.class))})})
     @PutMapping("/{id}")
-    public ResponseEntity<ClienteResponse> put(
-            @Valid @RequestBody ClienteRequest clienteRequest,
-            @PathVariable(name = "id") Integer idCliente) {
+    public ResponseEntity<ClienteResponse> put(@Valid @RequestBody ClienteRequest clienteRequest,
+                                               @PathVariable(name = "id") Integer idCliente) {
         return ResponseEntity.ok(this.clienteService.update(clienteRequest, idCliente));
     }
 
-    @DeleteMapping("/{id}")
     @Operation(summary = "Elimina un cliente")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "cliente eliminado",
@@ -82,6 +80,7 @@ public class ClienteController {
             @ApiResponse(responseCode = "404", description = "cliente no encontrado",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = ErrorResponse.class))})})
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable(name = "id") Integer idCliente) {
         this.clienteService.delete(idCliente);
         return ResponseEntity.noContent().build();

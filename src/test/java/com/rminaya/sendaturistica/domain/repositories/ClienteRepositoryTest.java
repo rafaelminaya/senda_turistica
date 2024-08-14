@@ -39,7 +39,7 @@ class ClienteRepositoryTest {
     @Test
     @DisplayName("save() - Guarda un cliente")
     void testSave() {
-        ClienteEntity clienteFromDB = this.clienteRepository.save(Datos.CLIENTE);
+        ClienteEntity clienteFromDB = this.clienteRepository.save(Datos.CLIENTE_ENTITY);
         Optional<ClienteEntity> cliente = this.clienteRepository.findById(clienteFromDB.getIdCliente());
         assertTrue(cliente.isPresent());
         assertEquals("Carlos", cliente.get().getNombre());
@@ -49,7 +49,7 @@ class ClienteRepositoryTest {
     @Test
     @DisplayName("findByActivoTrue() - Works")
     void testFindByIdActivoTrue() {
-        Optional<ClienteEntity> cliente = this.clienteRepository.findByActivoTrueAndIdCliente(1);
+        Optional<ClienteEntity> cliente = this.clienteRepository.findFirstByActivoTrueAndIdCliente(1);
         assertTrue(cliente.isPresent());
         assertEquals(true, cliente.get().getActivo());
     }
@@ -57,7 +57,7 @@ class ClienteRepositoryTest {
     @Test
     @DisplayName("findByActivoTrue() - Doesn't Work")
     void testFindByIdActivoTrueFailed() {
-        Optional<ClienteEntity> cliente = this.clienteRepository.findByActivoTrueAndIdCliente(15);
+        Optional<ClienteEntity> cliente = this.clienteRepository.findFirstByActivoTrueAndIdCliente(15);
         assertTrue(cliente.isEmpty());
     }
 }
