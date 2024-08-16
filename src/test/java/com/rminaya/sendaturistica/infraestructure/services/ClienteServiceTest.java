@@ -34,7 +34,7 @@ class ClienteServiceTest {
     @DisplayName("create() - Deberia crear un cliente")
     void testCreate() {
         // GIVEN
-        when(this.clienteRepository.save(any())).then(invocationOnMock -> {
+        when(this.clienteRepository.save(any(ClienteEntity.class))).then(invocationOnMock -> {
             ClienteEntity cliente = invocationOnMock.getArgument(0);
             cliente.setIdCliente(100);
             cliente.setNombre("Carlos");
@@ -47,14 +47,13 @@ class ClienteServiceTest {
         assertEquals("Carlos", cliente.getNombre());
         assertEquals("Rojas", cliente.getApellido());
         // THEN
-        verify(this.clienteRepository, times(1)).save(any());
+        verify(this.clienteRepository, times(1)).save(any(ClienteEntity.class));
     }
 
     @Test
     @DisplayName("read() - Encuentra al cliente con ID valido")
     void testRead() {
         // GIVEN
-        //when(this.clienteRepository.findById(1)).thenReturn(Optional.of(Datos.CLIENTE));
         when(this.clienteRepository.findFirstByActivoTrueAndIdCliente(VALID_ID)).thenReturn(Optional.of(Datos.CLIENTE_ENTITY));
         // WHEN
         ClienteResponse cliente1 = this.clienteService.read(VALID_ID);
@@ -63,8 +62,9 @@ class ClienteServiceTest {
         System.out.println(cliente1.equals(cliente2));
         System.out.println(cliente1.hashCode() == cliente2.hashCode());
         assertEquals(cliente1, cliente2);
+        assertEquals(VALID_ID, cliente1.getIdCliente());
         assertEquals("Carlos", cliente1.getNombre());
-        assertEquals("Rojas", cliente2.getApellido());
+        assertEquals("Heredia", cliente2.getApellido());
 
         verify(this.clienteRepository, times(2)).findFirstByActivoTrueAndIdCliente(VALID_ID);
     }

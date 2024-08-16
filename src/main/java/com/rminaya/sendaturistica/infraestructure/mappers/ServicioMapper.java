@@ -7,6 +7,8 @@ import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
 import org.mapstruct.Mappings;
 
+import java.util.List;
+
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface ServicioMapper {
     @Mappings({
@@ -14,4 +16,6 @@ public interface ServicioMapper {
             @Mapping(source = "tipoServicio.nombre", target = "tipoServicio")
     })
     ServicioResponse toServicio(ServicioEntity servicio);
+
+    List<ServicioResponse> toServicioList(List<ServicioEntity> servicioList);
 }

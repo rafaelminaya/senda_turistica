@@ -48,6 +48,9 @@ CREATE TABLE tipos_servicio (
 CREATE TABLE paquetes_turisticos (
   id_paquete_turistico INT NOT NULL AUTO_INCREMENT,
   costo_paquete DECIMAL(6,2) NOT NULL,
+  activo TINYINT NOT NULL,
+  created_date DATETIME NOT NULL,
+  modified_date DATETIME NOT NULL,
   CONSTRAINT pk_paquetes_turisticos PRIMARY KEY (id_paquete_turistico));
 
 
@@ -59,7 +62,7 @@ CREATE TABLE servicios (
   id_tipo_servicio INT NOT NULL,
   id_paquete_turistico INT NULL,
   nombre VARCHAR(45) NOT NULL,
-  descripcion_breve VARCHAR(45) NOT NULL,
+  descripcion_breve VARCHAR(60) NOT NULL,
   fecha_servicio DATETIME NOT NULL,
   costo_servicio DECIMAL(6,2) NOT NULL,
   activo TINYINT NOT NULL,

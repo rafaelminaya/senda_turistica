@@ -43,7 +43,7 @@ public class ClienteController {
         return ResponseEntity.ok(this.clienteService.read(idCliente));
     }
 
-    @PostMapping
+
     @Operation(summary = "Guarda un nuevo cliente")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "cliente guardado",
@@ -52,6 +52,7 @@ public class ClienteController {
             @ApiResponse(responseCode = "400", description = "propiedades invalidas",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = ErrorsResponse.class))})})
+    @PostMapping
     public ResponseEntity<ClienteResponse> post(@Valid @RequestBody ClienteRequest clienteRequest) {
         return ResponseEntity.ok().body(this.clienteService.create(clienteRequest));
     }

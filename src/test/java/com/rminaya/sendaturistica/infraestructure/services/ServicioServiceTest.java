@@ -35,9 +35,10 @@ class ServicioServiceTest {
     void create() {
         when(this.tipoServicioRepository.findFirstByActivoTrueAndIdTipoServicio(anyInt())).thenReturn(Optional.of(Datos.TIPO_SERVICIO_ENTITY));
         when(this.servicioRepository.save(any(ServicioEntity.class))).thenReturn(Datos.SERVICIO_ENTITY);
+
         ServicioResponse servicio = this.servicioService.create(Datos.SERVICIO_REQUEST);
         assertEquals(Datos.SERVICIO_RESPONSE, servicio);
-        assertEquals(1000, servicio.getIdServicio());
+        assertEquals(1, servicio.getIdServicio());
 
         verify(this.tipoServicioRepository, times(1)).findFirstByActivoTrueAndIdTipoServicio(anyInt());
         verify(this.servicioRepository, times(1)).save(any(ServicioEntity.class));
@@ -52,8 +53,8 @@ class ServicioServiceTest {
         ServicioResponse servicio1 = this.servicioService.read(ID_VALID);
         ServicioResponse servicio2 = this.servicioService.read(ID_VALID);
         assertEquals(servicio1, servicio2);
-        assertEquals("Alquiler auto BMW 193", servicio1.getNombre());
-        assertEquals("Alquiler de auto para el dia entero", servicio2.getDescripcionBreve());
+        assertEquals("Alquiler 1 dormitorio", servicio1.getNombre());
+        assertEquals("Alquiler de 1 dormitorio para persona sola por 3 noches", servicio1.getDescripcionBreve());
 
         verify(this.servicioRepository, times(2)).findFirstByActivoTrueAndIdServicio(ID_VALID);
 
@@ -68,7 +69,7 @@ class ServicioServiceTest {
 
         ServicioResponse servicio = this.servicioService.update(Datos.SERVICIO_REQUEST, ID_VALID);
         assertEquals(Datos.SERVICIO_RESPONSE, servicio);
-        assertEquals(1000, servicio.getIdServicio());
+        assertEquals(1, servicio.getIdServicio());
 
         verify(this.tipoServicioRepository, times(1)).findFirstByActivoTrueAndIdTipoServicio(anyInt());
         verify(this.servicioRepository, times(1)).findFirstByActivoTrueAndIdServicio(anyInt());

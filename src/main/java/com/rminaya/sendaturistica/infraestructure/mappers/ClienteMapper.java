@@ -14,9 +14,4 @@ public interface ClienteMapper {
             @Mapping(source = "fechaNacimiento", target = "fechaNacimiento", dateFormat = "dd/MM/yyyy")
     })
     ClienteResponse toCliente(ClienteEntity clienteEntity);
-
-    @InheritInverseConfiguration
-    ClienteEntity toEntity(ClienteRequest cliente);
-
-    List<ClienteResponse> toClienteList(List<ClienteEntity> clienteList);
 }

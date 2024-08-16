@@ -38,33 +38,33 @@ INSERT INTO empleados (id_cliente, cargo, sueldo) VALUES
 (4, 'Vendedor', 2100),
 (5, 'Vendedor', 1900);
 
-INSERT INTO paquetes_turisticos (costo_paquete) VALUES 
-(1000.00),
-(2000.00),
-(3000.00),
-(4000.00);
+INSERT INTO paquetes_turisticos (costo_paquete, activo, created_date, modified_date) VALUES 
+(540.00, 1, NOW(), NOW()),
+(2000.00, 1, NOW(), NOW()),
+(3000.00, 1, NOW(), NOW()),
+(4000.00, 0, NOW(), NOW());
 
 INSERT INTO servicios (id_tipo_servicio, id_paquete_turistico, nombre, descripcion_breve, fecha_servicio, costo_servicio, activo, created_date, modified_date) VALUES
-(7, null, 'analyzer', 'nonummy maecenas', '2024-05-05', 194.76, 1, NOW(), NOW()),
-(2, 4, 'Persevering', 'quam nec dui', '2023-12-14', 64.42, 1, NOW(), NOW()),
-(6, 4, 'array', 'quisque erat eros viverra eget', '2024-06-07', 53.97, 1, NOW(), NOW()),
-(4, 1, 'bottom-line', 'cubilia curae', '2023-10-29', 105.77, 1, NOW(), NOW()),
-(6, 2, 'support', 'nullam sit amet', '2024-03-07', 30.05, 1, NOW(), NOW()),
-(7, 4, 'upward-trending', 'nibh in hac', '2023-08-06', 164.34, 1, NOW(), NOW()),
-(5, 1, 'installation', 'sapien dignissim', '2023-09-12', 17.90, 1, NOW(), NOW()),
-(6, null, 'structure', 'vulputate elementum', '2024-01-02', 12.91, 1, NOW(), NOW()),
-(2, 2, 'interactive', 'morbi vestibulum velit', '2023-09-27', 80.51, 1, NOW(), NOW()),
-(5, 1, 'software', 'dis parturient montes nascetur', '2023-12-22', 180.47, 1, NOW(), NOW()),
-(1, 2, 'Object-based', 'cras pellentesque volutpat dui', '2024-01-20', 54.14, 1, NOW(), NOW()),
-(4, 1, 'Total', 'vehicula consequat morbi a ipsum', '2024-05-07', 91.82, 1, NOW(), NOW()),
-(1, 4, 'initiative', 'at nulla suspendisse', '2024-07-13', 132.82, 1, NOW(), NOW()),
-(1, null, 'uniform', 'id consequat in consequat ut', '2023-09-30', 170.82, 1, NOW(), NOW()),
-(5, 2, 'flexibility', 'aliquet pulvinar sed', '2024-03-16', 189.34, 1, NOW(), NOW()),
-(6, null, 'Intuitive', 'non ligula pellentesque ultrices phasellus', '2024-06-26', 93.62, 1, NOW(), NOW()),
-(6, 3, 'toolset', 'donec semper sapien', '2024-05-16', 175.43, 1, NOW(), NOW()),
-(3, 4, 'matrix', 'nunc proin at', '2024-06-24', 171.62, 0, NOW(), NOW()),
-(4, 1, 'model', 'erat vestibulum', '2023-09-09', 148.81, 0, NOW(), NOW()),
-(6, 1, 'attitude-oriented', 'eget eleifend luctus ultricies eu', '2024-05-14', 101.62, 0, NOW(), NOW());
+(1, 1, 'Alquiler 1 dormitorio', 'Alquiler de 1 dormitorio para persona sola por 3 noches', '2024-05-05 13:20:00', 500.00, 1, NOW(), NOW()),
+(2, 1, 'Alquiler auto BMW 193', 'Alquiler de auto para el dia entero', '2024-05-05 13:20:00', 100.00, 1, NOW(), NOW()),
+(6, 4, 'array', 'quisque erat eros viverra eget', '2024-06-07 13:20:00', 53.97, 1, NOW(), NOW()),
+(4, 1, 'bottom-line', 'cubilia curae', '2023-10-29 13:20:00', 105.77, 1, NOW(), NOW()),
+(6, 2, 'support', 'nullam sit amet', '2024-03-07 13:20:00', 30.05, 1, NOW(), NOW()),
+(7, 4, 'upward-trending', 'nibh in hac', '2023-08-06 13:20:00', 164.34, 1, NOW(), NOW()),
+(5, 1, 'installation', 'sapien dignissim', '2023-09-12 13:20:00', 17.90, 1, NOW(), NOW()),
+(6, null, 'structure', 'vulputate elementum', '2024-01-02 13:20:00', 12.91, 1, NOW(), NOW()),
+(2, 2, 'interactive', 'morbi vestibulum velit', '2023-09-27 13:20:00', 80.51, 1, NOW(), NOW()),
+(5, 1, 'software', 'dis parturient montes nascetur', '2023-12-22 13:20:00', 180.47, 1, NOW(), NOW()),
+(1, 2, 'Object-based', 'cras pellentesque volutpat dui', '2024-01-20 13:20:00', 54.14, 1, NOW(), NOW()),
+(4, 1, 'Total', 'vehicula consequat morbi a ipsum', '2024-05-07 13:20:00', 91.82, 1, NOW(), NOW()),
+(1, 4, 'initiative', 'at nulla suspendisse', '2024-07-13 13:20:00', 132.82, 1, NOW(), NOW()),
+(1, null, 'uniform', 'id consequat in consequat ut', '2023-09-30 13:20:00', 170.82, 1, NOW(), NOW()),
+(5, 2, 'flexibility', 'aliquet pulvinar sed', '2024-03-16 13:20:00', 189.34, 1, NOW(), NOW()),
+(6, null, 'Intuitive', 'non ligula pellentesque ultrices phasellus', '2024-06-26 13:20:00', 93.62, 1, NOW(), NOW()),
+(6, 3, 'toolset', 'donec semper sapien', '2024-05-16 13:20:00', 175.43, 1, NOW(), NOW()),
+(3, 4, 'matrix', 'nunc proin at', '2024-06-24 13:20:00', 171.62, 0, NOW(), NOW()),
+(4, 1, 'model', 'erat vestibulum', '2023-09-09 13:20:00', 148.81, 0, NOW(), NOW()),
+(6, 1, 'attitude-oriented', 'eget eleifend luctus ultricies eu', '2024-05-14 13:20:00', 101.62, 0, NOW(), NOW());
 
 INSERT INTO ventas (id_cliente, id_medio_pago, id_servicio, id_paquete_turistico, fecha_venta, tipo) VALUES
 (12, 3, 2, null, '2024-07-03', 'S'),

@@ -11,6 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -33,7 +34,7 @@ public class ServicioEntity extends AuditableEntity {
     @Column(nullable = false, length = 45)
     private String nombre;
 
-    @Column(name = "descripcion_breve", nullable = false, length = 45)
+    @Column(name = "descripcion_breve", nullable = false, length = 60)
     private String descripcionBreve;
 
     @Column(name = "fecha_servicio", nullable = false, columnDefinition = "DATETIME")
@@ -49,5 +50,4 @@ public class ServicioEntity extends AuditableEntity {
     @ManyToOne
     @JoinColumn(name = "id_paquete_turistico", referencedColumnName = "id_paquete_turistico", insertable = false, updatable = false)
     private PaqueteTuristicoEntity paqueteTuristico;
-
 }

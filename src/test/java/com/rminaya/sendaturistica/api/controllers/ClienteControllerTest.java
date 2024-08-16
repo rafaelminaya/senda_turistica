@@ -30,7 +30,7 @@ class ClienteControllerTest {
 
     ObjectMapper objectMapper;
 
-    private static final Integer VALID_ID = 1000;
+    private static final Integer VALID_ID = 1;
 
     @BeforeEach
     void setUp() {
@@ -49,7 +49,7 @@ class ClienteControllerTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.idCliente").value(VALID_ID))
                 .andExpect(jsonPath("$.nombre").value("Carlos"))
-                .andExpect(jsonPath("$.apellido").value("Rojas"))
+                .andExpect(jsonPath("$.apellido").value("Heredia"))
                 .andExpect(content().json(this.objectMapper.writeValueAsString(Datos.CLIENTE_RESPONSE)));
         // THEN
         verify(this.clienteService, times(1)).read(VALID_ID);
@@ -67,9 +67,9 @@ class ClienteControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().json(this.objectMapper.writeValueAsString(Datos.CLIENTE_RESPONSE)))
-                .andExpect(jsonPath("$.idCliente", is(1000)))
+                .andExpect(jsonPath("$.idCliente", is(1)))
                 .andExpect(jsonPath("$.nombre", is("Carlos")))
-                .andExpect(jsonPath("$.apellido", is("Rojas")));
+                .andExpect(jsonPath("$.apellido", is("Heredia")));
         // THEN
         verify(this.clienteService, times(1)).create(any());
     }
@@ -85,7 +85,7 @@ class ClienteControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().json(this.objectMapper.writeValueAsString(Datos.CLIENTE_RESPONSE)))
-                .andExpect(jsonPath("$.idCliente", is(1000)));
+                .andExpect(jsonPath("$.idCliente", is(1)));
 
         verify(this.clienteService, times(1)).update(any(ClienteRequest.class), anyInt());
     }

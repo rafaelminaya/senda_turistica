@@ -2,6 +2,8 @@ package com.rminaya.sendaturistica.domain.entities;
 
 import java.util.List;
 
+import com.rminaya.sendaturistica.domain.audit.AuditableEntity;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -13,14 +15,16 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 @NoArgsConstructor
 @Getter
 @Setter
+@SuperBuilder
 
 @Entity
 @Table(name = "paquetes_turisticos")
-public class PaqueteTuristicoEntity {
+public class PaqueteTuristicoEntity extends AuditableEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

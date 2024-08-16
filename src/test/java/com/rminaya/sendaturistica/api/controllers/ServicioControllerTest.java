@@ -28,7 +28,7 @@ class ServicioControllerTest {
     @MockBean
     private IServicioService servicioService;
 
-    private final static Integer ID_VALID = 1;
+    private final static Integer VALID_ID = 1;
     private ObjectMapper objectMapper;
 
     @BeforeEach
@@ -43,12 +43,12 @@ class ServicioControllerTest {
 
         when(this.servicioService.read(anyInt())).thenReturn(Datos.SERVICIO_RESPONSE);
 
-        this.mvc.perform(get("/api/servicios/" + ID_VALID))
+        this.mvc.perform(get("/api/servicios/" + VALID_ID))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().json(this.objectMapper.writeValueAsString(Datos.SERVICIO_RESPONSE)))
-                .andExpect(jsonPath("$.idServicio").value(1000))
-                .andExpect(jsonPath("$.nombre").value("Alquiler auto BMW 193"));
+                .andExpect(jsonPath("$.idServicio").value(VALID_ID))
+                .andExpect(jsonPath("$.nombre").value("Alquiler 1 dormitorio"));
 
         verify(this.servicioService, times(1)).read(anyInt());
     }
@@ -65,9 +65,9 @@ class ServicioControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().json(this.objectMapper.writeValueAsString(Datos.SERVICIO_RESPONSE)))
-                .andExpect(jsonPath("$.idServicio").value(1000))
-                .andExpect(jsonPath("$.nombre").value("Alquiler auto BMW 193"))
-                .andExpect(jsonPath("$.descripcionBreve").value("Alquiler de auto para el dia entero"));
+                .andExpect(jsonPath("$.idServicio").value(1))
+                .andExpect(jsonPath("$.nombre").value("Alquiler 1 dormitorio"))
+                .andExpect(jsonPath("$.descripcionBreve").value("Alquiler de 1 dormitorio para persona sola por 3 noches"));
 
         verify(this.servicioService, times(1)).create(any(ServicioRequest.class));
     }
@@ -77,21 +77,24 @@ class ServicioControllerTest {
     void testPut() throws Exception {
         when(this.servicioService.update(any(ServicioRequest.class), anyInt())).thenReturn(Datos.SERVICIO_RESPONSE);
 
-        this.mvc.perform(put("/api/servicios/" + ID_VALID)
+        this.mvc.perform(put("/api/servicios/" + VALID_ID)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(this.objectMapper.writeValueAsString(Datos.SERVICIO_REQUEST)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().json(this.objectMapper.writeValueAsString(Datos.SERVICIO_RESPONSE)))
-                .andExpect(jsonPath("$.idServicio", is(1000)))
-                .andExpect(jsonPath("$.nombre", is("Alquiler auto BMW 193")));
+                .andExpect(jsonPath("$.idServicio", is(VALID_ID)))
+                .andExpect(jsonPath("$.nombre", is("Alquiler 1 dormitorio")));
 
         verify(this.servicioService, times(1)).update(any(ServicioRequest.class), anyInt());
     }
 
     @Test
     @DisplayName("DELETE - Works")
-    void testDelete() {
-        //TODO
+    void testDelete()  throws Exception{
+        this.mvc.perform(delete("/api/servicios/" + VALID_ID).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNoContent());
+
+        verify(this.servicioService, times(1)).delete(anyInt());
     }
 }

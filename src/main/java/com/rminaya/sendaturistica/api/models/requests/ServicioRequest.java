@@ -22,7 +22,7 @@ public class ServicioRequest {
     private String nombre;
 
     @NotEmpty(message = "no puede estar vacio.")
-    @Size(min = 3, max = 45, message = "debe tener entre 3 y 45 caracteres.")
+    @Size(min = 3, max = 60, message = "debe tener entre 3 y 60 caracteres.")
     private String descripcionBreve;
 
     @NotNull(message = "no puede esta vacio.")

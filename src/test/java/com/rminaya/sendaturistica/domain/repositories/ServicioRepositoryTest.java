@@ -1,17 +1,20 @@
 package com.rminaya.sendaturistica.domain.repositories;
 
-import com.rminaya.sendaturistica.Datos;
 import com.rminaya.sendaturistica.domain.entities.ServicioEntity;
+import com.rminaya.sendaturistica.domain.entities.TipoServicioEntity;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -59,11 +62,34 @@ class ServicioRepositoryTest {
     @Test
     @DisplayName("save() - works")
     void testSave() {
-        ServicioEntity servicioFromDB = this.servicioRepository.save(Datos.SERVICIO_ENTITY);
-        Optional<ServicioEntity> servicio = this.servicioRepository.findById(servicioFromDB.getIdServicio());
+        LocalDateTime fechaServicio = LocalDateTime.of(
+                LocalDate.of(2024, 5, 5),
+                LocalTime.of(13, 20, 0, 0));
+
+        ServicioEntity servicioToPersist = ServicioEntity.builder()
+                .nombre("Alquiler 1 dormitorio")
+                .descripcionBreve("Alquiler de 1 dormitorio para persona sola por 3 noches")
+                .fechaServicio(fechaServicio)
+                .costoServicio(500.0)
+                .tipoServicio(new TipoServicioEntity(1, "Hotel por noche/s"))
+                .paqueteTuristico(null)
+                .activo(true)
+                .build();
+
+        ServicioEntity servicioPersisted = this.servicioRepository.save(servicioToPersist);
+        Optional<ServicioEntity> servicio = this.servicioRepository.findById(servicioPersisted.getIdServicio());
 
         assertTrue(servicio.isPresent());
-        assertEquals("Alquiler auto BMW 193", servicio.get().getNombre());
-        assertEquals("Alquiler de auto para el dia entero", servicio.get().getDescripcionBreve());
+        assertEquals("Alquiler 1 dormitorio", servicio.get().getNombre());
+        assertEquals("Alquiler de 1 dormitorio para persona sola por 3 noches", servicio.get().getDescripcionBreve());
+    }
+
+    @Test
+    @DisplayName("testFindAllByPaqueteTuristico_IdPaqueteTuristico() - works")
+    void testFindAllByActivoTrueAndPaqueteTuristico_IdPaqueteTuristico() {
+        List<ServicioEntity> servicios = this.servicioRepository.findAllByActivoTrueAndPaqueteTuristico_IdPaqueteTuristico(1);
+
+        assertFalse(servicios.isEmpty());
+        assertEquals(6, servicios.size());
     }
 }
