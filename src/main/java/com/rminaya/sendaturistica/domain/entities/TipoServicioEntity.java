@@ -10,6 +10,8 @@ import jakarta.persistence.Table;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
+import java.util.Objects;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -28,4 +30,24 @@ public class TipoServicioEntity extends AuditableEntity {
 
     @Column(nullable = false, length = 45)
     private String nombre;
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (!(object instanceof TipoServicioEntity that)) return false;
+        return Objects.equals(idTipoServicio, that.idTipoServicio) && Objects.equals(nombre, that.nombre);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idTipoServicio, nombre);
+    }
+
+    @Override
+    public String toString() {
+        return "TipoServicioEntity{" +
+                "idTipoServicio=" + idTipoServicio +
+                ", nombre='" + nombre + '\'' +
+                '}';
+    }
 }

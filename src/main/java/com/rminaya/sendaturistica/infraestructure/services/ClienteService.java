@@ -50,7 +50,6 @@ public class ClienteService implements IClienteService {
 
         ClienteEntity clienteFromDB = this.clienteRepository.findFirstByActivoTrueAndIdCliente(idCliente)
                 .orElseThrow(() -> new IdNotFoundException(Tables.clientes.name(), idCliente));
-
         return this.clienteMapper.toCliente(clienteFromDB);
     }
 

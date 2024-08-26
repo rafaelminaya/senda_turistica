@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -31,17 +32,17 @@ public class PaqueteTuristicoService implements IPaqueteTuristicoService {
     @Override
     @Transactional
     public PaqueteTuristicoResponse create(PaqueteTuristicoRequest paqueteTuristicoRequest) {
-
+        // Obtenemos los IDs de servicios
         List<Integer> idsServicio = paqueteTuristicoRequest
                 .getServicios()
                 .stream()
                 .map(PaqueteTuristicoServicioRequest::getId)
                 .toList();
-        // buscamos los servicios
+        // Buscamos los servicios de los IDs obtenidos
         List<ServicioEntity> servicios = (List<ServicioEntity>) this.servicioRepository.findAllById(idsServicio);
 
+        // Creamos y persistimos el nuevo paquete turistico
         PaqueteTuristicoEntity paqueteTuristicoToPersit = PaqueteTuristicoEntity.builder()
-                .costoPaquete(1000.0)
                 .servicios(servicios)
                 .build();
 
@@ -63,28 +64,23 @@ public class PaqueteTuristicoService implements IPaqueteTuristicoService {
     @Override
     @Transactional
     public PaqueteTuristicoResponse update(PaqueteTuristicoRequest paqueteTuristicoRequest, Integer idPaqueteTuristico) {
-
+        // Recolectamos los servicios IDs
         List<Integer> idsServicios = paqueteTuristicoRequest
                 .getServicios()
                 .stream()
-                .map(servicio -> servicio.getId())
-                .toList();
-        // Eliminamos los actuales servicios del paquete turistico
-        PaqueteTuristicoEntity paqueteToUpdate = this.paqueteTuristicoRepository.findById(idPaqueteTuristico)
+                .map(PaqueteTuristicoServicioRequest::getId)
+                .collect(Collectors.toList());
+        // Buscamos el paquete a actualizar
+        PaqueteTuristicoEntity paqueteToUpdate = this.paqueteTuristicoRepository
+                .findById(idPaqueteTuristico)
                 .orElseThrow(() -> new IdNotFoundException(Tables.paquetes_turisticos.name(), idPaqueteTuristico));
-
-        List<ServicioEntity> paqueteTuristicoServicios = this.servicioRepository
-                .findAllByActivoTrueAndPaqueteTuristico_IdPaqueteTuristico(paqueteToUpdate.getIdPaqueteTuristico());
-
-        paqueteTuristicoServicios.forEach(servicio -> {
-            servicio.setPaqueteTuristico(null);
-            this.servicioRepository.save(servicio);
-        });
-        // Buscamos los nuevos servicios
+        // Buscamos los nuevos servicios del paquete
         List<ServicioEntity> servicios = (List<ServicioEntity>) this.servicioRepository.findAllById(idsServicios);
-        // Agreagmos los nuevos servicios al paquete actual
-        paqueteToUpdate.setCostoPaquete(2000.0);
+        // Eliminamos los antiguos servicios al paquete actual
+        // Agregamos los nuevos servicios al paquete actual
+        paqueteToUpdate.actualizarServicios(servicios);
         paqueteToUpdate.setServicios(servicios);
+        paqueteToUpdate.setCostoPaquete(paqueteToUpdate.calcularCostoPaquete(servicios));
 
         PaqueteTuristicoEntity paqueteTuristicoUpdated = this.paqueteTuristicoRepository.save(paqueteToUpdate);
 
@@ -94,19 +90,15 @@ public class PaqueteTuristicoService implements IPaqueteTuristicoService {
     @Override
     @Transactional
     public void delete(Integer idPaqueteTuristico) {
-        // Eliminamos los actuales servicios del paquete turistico
-        PaqueteTuristicoEntity paqueteToDeleted = this.paqueteTuristicoRepository.findById(idPaqueteTuristico)
+        // Buscamos el paquete turistico a eliminar
+        PaqueteTuristicoEntity paqueteToDeleted = this.paqueteTuristicoRepository
+                .findById(idPaqueteTuristico)
                 .orElseThrow(() -> new IdNotFoundException(Tables.paquetes_turisticos.name(), idPaqueteTuristico));
-
-        List<ServicioEntity> paqueteTuristicoServicios = this.servicioRepository
-                .findAllByActivoTrueAndPaqueteTuristico_IdPaqueteTuristico(paqueteToDeleted.getIdPaqueteTuristico());
-
-        paqueteTuristicoServicios.forEach(servicio -> {
-            servicio.setPaqueteTuristico(null);
-            this.servicioRepository.save(servicio);
-        });
+        // Eliminamos los actuales servicios del paquete turistico
+        paqueteToDeleted.removeAllServicios();
         // Actualizamos el estado del paquete turistico
         paqueteToDeleted.setActivo(false);
+
         this.paqueteTuristicoRepository.save(paqueteToDeleted);
     }
 }

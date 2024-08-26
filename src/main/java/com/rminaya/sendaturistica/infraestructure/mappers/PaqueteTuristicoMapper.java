@@ -11,11 +11,6 @@ import org.mapstruct.Mappings;
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING, uses = {ServicioMapper.class})
 public interface PaqueteTuristicoMapper {
 
-    @Mappings({
-            @Mapping(source = "idPaqueteTuristico", target = "idPaqueteTuristico"),
-            @Mapping(source = "costoPaquete", target = "costoPaquete"),
-            @Mapping(source = "servicios", target = "servicios")
-    })
     PaqueteTuristicoResponse toPaqueteTuristico(PaqueteTuristicoEntity paqueteTuristicoEntity);
 
 }

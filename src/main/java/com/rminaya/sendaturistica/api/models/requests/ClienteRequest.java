@@ -4,17 +4,15 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 
-@Data
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor // Necesario para la deserializacion del JSON
+@AllArgsConstructor// Necesario para que funcione el @Builder
+@Setter // Necesario para la deserializacion del JSON
+@Getter // Necesario para la obtención de cada atributo desde la clase @Service
+@Builder // Implementa el patron builder--usado en los unit test(service)
 public class ClienteRequest {
 
     @NotEmpty(message = "no puede estar vacio.")

@@ -17,16 +17,20 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
+
+
+@RequiredArgsConstructor
+@Tag(name = "clientes", description = "Operaciones CRUD para clientes")
 
 @RestController
 @RequestMapping(path = "/api/clientes")
-@RequiredArgsConstructor
-@Tag(name = "clientes")
 public class ClienteController {
 
     private final IClienteService clienteService;
 
-    @Operation(summary = "Obtener un cliente por su ID")
+    @Operation(summary = "Obtener un cliente por su ID",
+            description = "Recupera los detalles de un cliente específico utilizando su ID único")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "cliente encontrado",
                     content = {@Content(mediaType = "application/json",
@@ -44,9 +48,9 @@ public class ClienteController {
     }
 
 
-    @Operation(summary = "Guarda un nuevo cliente")
+    @Operation(summary = "Guarda un nuevo cliente", description = "Creacion del cliente ingresando sus datos")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "cliente guardado",
+            @ApiResponse(responseCode = "201", description = "cliente guardado",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = ClienteResponse.class))}),
             @ApiResponse(responseCode = "400", description = "propiedades invalidas",
@@ -54,10 +58,12 @@ public class ClienteController {
                             schema = @Schema(implementation = ErrorsResponse.class))})})
     @PostMapping
     public ResponseEntity<ClienteResponse> post(@Valid @RequestBody ClienteRequest clienteRequest) {
-        return ResponseEntity.ok().body(this.clienteService.create(clienteRequest));
+        ClienteResponse clienteResponse = this.clienteService.create(clienteRequest);
+        URI clienteUri = URI.create("/api/clientes/" + clienteResponse.getIdCliente());
+        return ResponseEntity.created(clienteUri).body(clienteResponse);
     }
 
-    @Operation(summary = "Actualiza un cliente")
+    @Operation(summary = "Actualiza un cliente", description = "Actualizacion del cliente ingresando sus datos segun su ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "cliente actualizado",
                     content = {@Content(mediaType = "application/json",
@@ -74,7 +80,7 @@ public class ClienteController {
         return ResponseEntity.ok(this.clienteService.update(clienteRequest, idCliente));
     }
 
-    @Operation(summary = "Elimina un cliente")
+    @Operation(summary = "Elimina un cliente", description = "Elimina un cliente segun su ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "cliente eliminado",
                     content = @Content),

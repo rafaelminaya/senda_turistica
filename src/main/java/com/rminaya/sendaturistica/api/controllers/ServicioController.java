@@ -16,9 +16,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
+
 
 @RequiredArgsConstructor
-@Tag(name = "servicios")
+@Tag(name = "servicios", description = "Operaciones CRUD para servicios")
 
 @RestController
 @RequestMapping(path = "/api/servicios")
@@ -26,7 +28,8 @@ public class ServicioController {
 
     private final IServicioService servicioService;
 
-    @Operation(summary = "Obtener un servicio por su ID")
+    @Operation(summary = "Obtener un servicio por su ID",
+            description = "Recupera los detalles de un paquete turistico específico utilizando su ID único")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "servicio encontrado",
                     content = {@Content(mediaType = "application/json",
@@ -41,9 +44,9 @@ public class ServicioController {
         return ResponseEntity.ok(this.servicioService.read(idServicio));
     }
 
-    @Operation(summary = "Crea un nuevo servicio")
+    @Operation(summary = "Crea un nuevo servicio", description = "Creacion del servicio ingresando sus datos")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "servicio guardado",
+            @ApiResponse(responseCode = "201", description = "servicio guardado",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = ServicioResponse.class))}),
             @ApiResponse(responseCode = "400", description = "propiedades invalidas",
@@ -51,10 +54,13 @@ public class ServicioController {
                             schema = @Schema(implementation = ErrorsResponse.class))})})
     @PostMapping
     public ResponseEntity<ServicioResponse> post(@Valid @RequestBody ServicioRequest servicioRequest) {
-        return ResponseEntity.ok(this.servicioService.create(servicioRequest));
+        ServicioResponse servicioResponse = this.servicioService.create(servicioRequest);
+        URI servicioUri = URI.create("/api/servicios/" + servicioResponse.getIdServicio());
+        return ResponseEntity.created(servicioUri).body(servicioResponse);
     }
 
-    @Operation(summary = "Actualiza un servicio")
+    @Operation(summary = "Actualiza un servicio",
+            description = "Actualizacion del servicio ingresando sus datos segun su ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "servicio actualizado",
                     content = {@Content(mediaType = "application/json",
@@ -71,7 +77,7 @@ public class ServicioController {
         return ResponseEntity.ok(this.servicioService.update(servicioRequest, idServicio));
     }
 
-    @Operation(summary = "Elimina un servicio")
+    @Operation(summary = "Elimina un servicio", description = "Elimina un servicio segun su ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "servicio eliminado",
                     content = @Content),

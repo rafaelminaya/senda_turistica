@@ -73,14 +73,10 @@ CREATE TABLE servicios (
   INDEX fk_servicios_paquetes_turisticos1_idx (id_paquete_turistico ASC) VISIBLE,
   CONSTRAINT fk_servicio_tipo_servicio1
     FOREIGN KEY (id_tipo_servicio)
-    REFERENCES tipos_servicio (id_tipo_servicio)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    REFERENCES tipos_servicio (id_tipo_servicio),
   CONSTRAINT fk_servicios_paquetes_turisticos1
     FOREIGN KEY (id_paquete_turistico)
     REFERENCES paquetes_turisticos (id_paquete_turistico)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION
 );
 
 

@@ -8,5 +8,4 @@ public enum Tables {
     servicios,
     tipos_servicio,
     ventas
-
 }

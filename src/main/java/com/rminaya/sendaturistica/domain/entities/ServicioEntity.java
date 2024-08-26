@@ -1,21 +1,14 @@
 package com.rminaya.sendaturistica.domain.entities;
 
-import java.time.LocalDateTime;
-
 import com.rminaya.sendaturistica.domain.audit.AuditableEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
+
+import java.time.LocalDateTime;
+import java.util.Objects;
 
 @NoArgsConstructor
 @Getter
@@ -48,6 +41,30 @@ public class ServicioEntity extends AuditableEntity {
     private TipoServicioEntity tipoServicio;
 
     @ManyToOne
-    @JoinColumn(name = "id_paquete_turistico", referencedColumnName = "id_paquete_turistico", insertable = false, updatable = false)
+    @JoinColumn(name = "id_paquete_turistico", referencedColumnName = "id_paquete_turistico")
     private PaqueteTuristicoEntity paqueteTuristico;
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (!(object instanceof ServicioEntity servicio)) return false;
+        return Objects.equals(idServicio, servicio.idServicio) && Objects.equals(nombre, servicio.nombre) && Objects.equals(descripcionBreve, servicio.descripcionBreve) && Objects.equals(fechaServicio, servicio.fechaServicio) && Objects.equals(costoServicio, servicio.costoServicio) && Objects.equals(tipoServicio, servicio.tipoServicio);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idServicio, nombre, descripcionBreve, fechaServicio, costoServicio, tipoServicio);
+    }
+
+    @Override
+    public String toString() {
+        return "ServicioEntity{" +
+                "idServicio=" + idServicio +
+                ", nombre='" + nombre + '\'' +
+                ", descripcionBreve='" + descripcionBreve + '\'' +
+                ", fechaServicio=" + fechaServicio +
+                ", costoServicio=" + costoServicio +
+                ", tipoServicio=" + tipoServicio.getNombre() +
+                '}';
+    }
 }

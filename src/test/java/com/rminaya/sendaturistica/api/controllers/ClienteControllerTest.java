@@ -59,19 +59,20 @@ class ClienteControllerTest {
     @DisplayName("post() - Crea un nuevo cliente")
     void testPost() throws Exception {
         // GIVEN
-        when(this.clienteService.create(eq(Datos.CLIENTE_REQUEST))).thenReturn(Datos.CLIENTE_RESPONSE);
+        when(this.clienteService.create(any(ClienteRequest.class))).thenReturn(Datos.CLIENTE_RESPONSE);
         // WHEN
         this.mvc.perform(post("/api/clientes")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(this.objectMapper.writeValueAsString(Datos.CLIENTE_REQUEST)))
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
+                .andExpect(header().string("Location", "/api/clientes/" + Datos.CLIENTE_RESPONSE.getIdCliente()))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().json(this.objectMapper.writeValueAsString(Datos.CLIENTE_RESPONSE)))
                 .andExpect(jsonPath("$.idCliente", is(1)))
                 .andExpect(jsonPath("$.nombre", is("Carlos")))
                 .andExpect(jsonPath("$.apellido", is("Heredia")));
         // THEN
-        verify(this.clienteService, times(1)).create(any());
+        verify(this.clienteService, times(1)).create(any(ClienteRequest.class));
     }
 
     @Test

@@ -62,7 +62,8 @@ class ServicioControllerTest {
         this.mvc.perform(post("/api/servicios")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(this.objectMapper.writeValueAsString(Datos.SERVICIO_REQUEST)))
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
+                .andExpect(header().string("Location", "/api/servicios/" + Datos.SERVICIO_RESPONSE.getIdServicio()))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().json(this.objectMapper.writeValueAsString(Datos.SERVICIO_RESPONSE)))
                 .andExpect(jsonPath("$.idServicio").value(1))
@@ -91,7 +92,7 @@ class ServicioControllerTest {
 
     @Test
     @DisplayName("DELETE - Works")
-    void testDelete()  throws Exception{
+    void testDelete() throws Exception {
         this.mvc.perform(delete("/api/servicios/" + VALID_ID).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
 

@@ -1,6 +1,8 @@
 package com.rminaya.sendaturistica;
 
 import com.rminaya.sendaturistica.api.models.requests.ClienteRequest;
+import com.rminaya.sendaturistica.api.models.requests.PaqueteTuristicoRequest;
+import com.rminaya.sendaturistica.api.models.requests.PaqueteTuristicoServicioRequest;
 import com.rminaya.sendaturistica.api.models.requests.ServicioRequest;
 import com.rminaya.sendaturistica.api.models.responses.ClienteResponse;
 import com.rminaya.sendaturistica.api.models.responses.PaqueteTuristicoResponse;
@@ -31,6 +33,10 @@ public class Datos {
     public static final TipoServicioEntity TIPO_SERVICIO_ENTITY;
     public static final PaqueteTuristicoEntity PAQUETE_TURISTICO_ENTITY;
     public static final PaqueteTuristicoResponse PAQUETE_TURISTICO_RESPONSE;
+    public static final PaqueteTuristicoRequest PAQUETE_TURISTICO_REQUEST;
+    public static final PaqueteTuristicoServicioRequest PAQUETE_TURISTICO_SERVICIO_REQUEST;
+    public static final PaqueteTuristicoServicioRequest PAQUETE_TURISTICO_SERVICIO_REQUEST_2;
+    public static final IdNotFoundException PAQUETE_TURISTICO_INVALID = new IdNotFoundException(Tables.paquetes_turisticos.name(), 1000);
 
     static {
         CLIENTE_ENTITY = ClienteEntity.builder()
@@ -73,7 +79,7 @@ public class Datos {
                 .idServicio(1)
                 .nombre("Alquiler 1 dormitorio")
                 .descripcionBreve("Alquiler de 1 dormitorio para persona sola por 3 noches")
-                .fechaServicio(LocalDateTime.of(LocalDate.of(2024, 5, 5), LocalTime.of(13, 20,0,0)))
+                .fechaServicio(LocalDateTime.of(LocalDate.of(2024, 5, 5), LocalTime.of(13, 20, 0, 0)))
                 .costoServicio(500.0)
                 .tipoServicio(new TipoServicioEntity(1, "Hotel por noche/s"))
                 .paqueteTuristico(null)
@@ -84,7 +90,7 @@ public class Datos {
                 .idServicio(2)
                 .nombre("Alquiler auto BMW 193")
                 .descripcionBreve("Alquiler de auto para el dia entero")
-                .fechaServicio(LocalDateTime.of(LocalDate.of(2024, 5, 5), LocalTime.of(13, 20,0,0)))
+                .fechaServicio(LocalDateTime.of(LocalDate.of(2024, 5, 5), LocalTime.of(13, 20, 0, 0)))
                 .costoServicio(100.0)
                 .tipoServicio(new TipoServicioEntity(2, "Alquiler de auto"))
                 .paqueteTuristico(null)
@@ -95,7 +101,7 @@ public class Datos {
                 .idServicio(1)
                 .nombre("Alquiler 1 dormitorio")
                 .descripcionBreve("Alquiler de 1 dormitorio para persona sola por 3 noches")
-                .fechaServicio(LocalDateTime.of(LocalDate.of(2024, 5, 5), LocalTime.of(13, 20,0,0)).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
+                .fechaServicio(LocalDateTime.of(LocalDate.of(2024, 5, 5), LocalTime.of(13, 20, 0, 0)).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
                 .costoServicio(500.0)
                 .tipoServicio("Hotel por noche/s")
                 .build();
@@ -104,7 +110,7 @@ public class Datos {
                 .idServicio(2)
                 .nombre("Alquiler auto BMW 193")
                 .descripcionBreve("Alquiler de auto para el dia entero")
-                .fechaServicio(LocalDateTime.of(LocalDate.of(2024, 5, 5), LocalTime.of(13, 20,0,0)).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
+                .fechaServicio(LocalDateTime.of(LocalDate.of(2024, 5, 5), LocalTime.of(13, 20, 0, 0)).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
                 .costoServicio(100.0)
                 .tipoServicio("Alquiler de auto")
                 .build();
@@ -112,7 +118,7 @@ public class Datos {
         SERVICIO_REQUEST = ServicioRequest.builder()
                 .nombre("Alquiler 1 dormitorio")
                 .descripcionBreve("Alquiler de 1 dormitorio para persona sola por 3 noches")
-                .fechaServicio(LocalDateTime.of(LocalDate.of(2024, 5, 5), LocalTime.of(13, 20,0,0)))
+                .fechaServicio(LocalDateTime.of(LocalDate.of(2024, 5, 5), LocalTime.of(13, 20, 0, 0)))
                 .costoServicio(500.0)
                 .idTipoServicio(1)
                 .build();
@@ -133,6 +139,18 @@ public class Datos {
                 .idPaqueteTuristico(1)
                 .costoPaquete(540.0)
                 .servicios(List.of(SERVICIO_RESPONSE, SERVICIO_RESPONSE_2))
+                .build();
+
+        PAQUETE_TURISTICO_SERVICIO_REQUEST = PaqueteTuristicoServicioRequest.builder()
+                .id(1)
+                .build();
+
+        PAQUETE_TURISTICO_SERVICIO_REQUEST_2 = PaqueteTuristicoServicioRequest.builder()
+                .id(2)
+                .build();
+
+        PAQUETE_TURISTICO_REQUEST = PaqueteTuristicoRequest.builder()
+                .servicios(List.of(PAQUETE_TURISTICO_SERVICIO_REQUEST, PAQUETE_TURISTICO_SERVICIO_REQUEST_2))
                 .build();
     }
 }
