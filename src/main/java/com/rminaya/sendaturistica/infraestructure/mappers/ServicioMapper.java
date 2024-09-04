@@ -10,7 +10,7 @@ import org.mapstruct.Mappings;
 import java.util.List;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
-public interface ServicioMapper {
+public interface    ServicioMapper {
     @Mappings({
             @Mapping(source = "fechaServicio", target = "fechaServicio", dateFormat = "dd/MM/yyyy"),
             @Mapping(source = "tipoServicio.nombre", target = "tipoServicio")

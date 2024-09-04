@@ -1,16 +1,11 @@
 package com.rminaya.sendaturistica;
 
-import com.rminaya.sendaturistica.api.models.requests.ClienteRequest;
-import com.rminaya.sendaturistica.api.models.requests.PaqueteTuristicoRequest;
-import com.rminaya.sendaturistica.api.models.requests.PaqueteTuristicoServicioRequest;
-import com.rminaya.sendaturistica.api.models.requests.ServicioRequest;
+import com.rminaya.sendaturistica.api.models.requests.*;
 import com.rminaya.sendaturistica.api.models.responses.ClienteResponse;
 import com.rminaya.sendaturistica.api.models.responses.PaqueteTuristicoResponse;
 import com.rminaya.sendaturistica.api.models.responses.ServicioResponse;
-import com.rminaya.sendaturistica.domain.entities.ClienteEntity;
-import com.rminaya.sendaturistica.domain.entities.PaqueteTuristicoEntity;
-import com.rminaya.sendaturistica.domain.entities.ServicioEntity;
-import com.rminaya.sendaturistica.domain.entities.TipoServicioEntity;
+import com.rminaya.sendaturistica.api.models.responses.VentaResponse;
+import com.rminaya.sendaturistica.domain.entities.*;
 import com.rminaya.sendaturistica.util.enums.Tables;
 import com.rminaya.sendaturistica.util.exceptions.IdNotFoundException;
 
@@ -25,6 +20,7 @@ public class Datos {
     public static final ClienteResponse CLIENTE_RESPONSE;
     public static final ClienteRequest CLIENTE_REQUEST;
     public static final IdNotFoundException CLIENTE_INVALID = new IdNotFoundException(Tables.clientes.name(), 1000);
+    public static final EmpleadoEntity EMPLEADO_ENTITY;
     public static final ServicioEntity SERVICIO_ENTITY;
     public static final ServicioEntity SERVICIO_ENTITY_2;
     public static final ServicioResponse SERVICIO_RESPONSE;
@@ -37,6 +33,9 @@ public class Datos {
     public static final PaqueteTuristicoServicioRequest PAQUETE_TURISTICO_SERVICIO_REQUEST;
     public static final PaqueteTuristicoServicioRequest PAQUETE_TURISTICO_SERVICIO_REQUEST_2;
     public static final IdNotFoundException PAQUETE_TURISTICO_INVALID = new IdNotFoundException(Tables.paquetes_turisticos.name(), 1000);
+    public static final VentaEntity VENTA_ENTITY;
+    public static final VentaResponse VENTA_RESPONSE;
+    public static final VentaRequest VENTA_REQUEST;
 
     static {
         CLIENTE_ENTITY = ClienteEntity.builder()
@@ -73,6 +72,21 @@ public class Datos {
                 .nacionalidad("Peruana")
                 .celular("934854732")
                 .email("carlos.heredia@gmail.com")
+                .build();
+
+        EMPLEADO_ENTITY = EmpleadoEntity.builder()
+                .idCliente(1)
+                .nombre("Carlos")
+                .apellido("Heredia")
+                .direccion("Av. Rosales 1293")
+                .dni("38467245")
+                .fechaNacimiento(LocalDate.of(1985, 7, 12))
+                .nacionalidad("Peruana")
+                .celular("934854732")
+                .email("carlos.heredia@gmail.com")
+                .activo(true)
+                .cargo("Administrador")
+                .sueldo(6000.0)
                 .build();
 
         SERVICIO_ENTITY = ServicioEntity.builder()
@@ -151,6 +165,37 @@ public class Datos {
 
         PAQUETE_TURISTICO_REQUEST = PaqueteTuristicoRequest.builder()
                 .servicios(List.of(PAQUETE_TURISTICO_SERVICIO_REQUEST, PAQUETE_TURISTICO_SERVICIO_REQUEST_2))
+                .build();
+
+        VENTA_ENTITY = VentaEntity.builder()
+                .idVenta(1)
+                .fechaVenta(LocalDateTime.of(LocalDate.of(2024, 7, 3), LocalTime.of(13, 20, 0, 0)))
+                .tipo("S")
+                .cliente(CLIENTE_ENTITY)
+                .empleado(EMPLEADO_ENTITY)
+                .medioPago(new MedioPagoEntity(1, "Efectivo", 0.0))
+                .servicio(SERVICIO_ENTITY)
+                .paqueteTuristico(null)
+                .build();
+
+        VENTA_RESPONSE = VentaResponse.builder()
+                .idVenta(1)
+                .fechaVenta(LocalDateTime.of(LocalDate.of(2024, 7, 3), LocalTime.of(13, 20, 0, 0)))
+                .tipo("S")
+                .cliente(CLIENTE_RESPONSE.getNombre())
+                .empleado(EMPLEADO_ENTITY.getNombre())
+                .medioPago("Efectivo")
+                .servicio(SERVICIO_RESPONSE)
+                .paqueteTuristico(null)
+                .build();
+
+        VENTA_REQUEST = VentaRequest.builder()
+                .tipo("S")
+                .idCliente(1)
+                .idEmpleado(1)
+                .idMedioPago(1)
+                .idServicio(1)
+                .idPaqueteTuristico(null)
                 .build();
     }
 }

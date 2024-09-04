@@ -7,5 +7,6 @@ import java.util.Optional;
 import org.springframework.data.repository.CrudRepository;
 
 public interface PaqueteTuristicoRepository extends CrudRepository<PaqueteTuristicoEntity, Integer> {
+
     Optional<PaqueteTuristicoEntity> findFirstByActivoTrueAndIdPaqueteTuristico(Integer idPaqueteTuristico);
 }

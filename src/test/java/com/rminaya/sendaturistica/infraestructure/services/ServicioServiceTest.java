@@ -42,7 +42,6 @@ class ServicioServiceTest {
 
         verify(this.tipoServicioRepository, times(1)).findFirstByActivoTrueAndIdTipoServicio(anyInt());
         verify(this.servicioRepository, times(1)).save(any(ServicioEntity.class));
-
     }
 
     @Test
@@ -57,7 +56,6 @@ class ServicioServiceTest {
         assertEquals("Alquiler de 1 dormitorio para persona sola por 3 noches", servicio1.getDescripcionBreve());
 
         verify(this.servicioRepository, times(2)).findFirstByActivoTrueAndIdServicio(ID_VALID);
-
     }
 
     @Test
