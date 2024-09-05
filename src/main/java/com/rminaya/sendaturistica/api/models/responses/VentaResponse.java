@@ -22,6 +22,7 @@ public class VentaResponse {
     private String cliente;
     private String empleado;
     private String medioPago;
+    private Double porcentajeComision;
     private ServicioResponse servicio;
     private PaqueteTuristicoResponse paqueteTuristico;
 }

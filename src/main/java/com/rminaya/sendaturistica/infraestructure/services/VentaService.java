@@ -10,6 +10,7 @@ import com.rminaya.sendaturistica.util.enums.Tables;
 import com.rminaya.sendaturistica.util.exceptions.IdNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -59,6 +60,7 @@ public class VentaService implements IVentaService {
                 .cliente(cliente)
                 .empleado(empleado)
                 .medioPago(medioPago)
+                .porcentajeComision(medioPago.getPorcentajeComision())
                 .servicio(servicio)
                 .paqueteTuristico(paqueteTuristico)
                 .build();
@@ -107,6 +109,7 @@ public class VentaService implements IVentaService {
         ventaToUpdate.setTipo(ventaRequest.getTipo());
         ventaToUpdate.setCliente(cliente);
         ventaToUpdate.setMedioPago(medioPago);
+        ventaToUpdate.setPorcentajeComision(medioPago.getPorcentajeComision());
         ventaToUpdate.setEmpleado(empleado);
         ventaToUpdate.setServicio(servicio);
         ventaToUpdate.setPaqueteTuristico(paqueteTuristico);

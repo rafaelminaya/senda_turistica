@@ -28,13 +28,16 @@ public class VentaEntity extends AuditableEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_venta", nullable = false)
-    public Integer idVenta;
+    private Integer idVenta;
 
     @Column(name = "fecha_venta", nullable = false, columnDefinition = "DATETIME")
-    public LocalDateTime fechaVenta;
+    private LocalDateTime fechaVenta;
 
     @Column(nullable = false, columnDefinition = "CHAR(1)")
-    public String tipo;
+    private String tipo;
+
+    @Column(name = "porcentaje_comision", nullable = false, columnDefinition = "DECIMAL(6,2)")
+    private Double porcentajeComision;
     // RELACIONES
     @ManyToOne
     @JoinColumn(name = "id_cliente", referencedColumnName = "id_cliente", nullable = false)

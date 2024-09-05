@@ -101,6 +101,7 @@
       id_paquete_turistico INT NULL,
       fecha_venta DATETIME NOT NULL,
       tipo CHAR(1) NOT NULL,
+      porcentaje_comision DECIMAL(6,2) NOT NULL,
       activo TINYINT NOT NULL,
       created_date DATETIME NOT NULL,
       modified_date DATETIME NOT NULL,

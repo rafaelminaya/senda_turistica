@@ -174,6 +174,7 @@ public class Datos {
                 .cliente(CLIENTE_ENTITY)
                 .empleado(EMPLEADO_ENTITY)
                 .medioPago(new MedioPagoEntity(1, "Efectivo", 0.0))
+                .porcentajeComision(0.0)
                 .servicio(SERVICIO_ENTITY)
                 .paqueteTuristico(null)
                 .build();
@@ -185,6 +186,7 @@ public class Datos {
                 .cliente(CLIENTE_RESPONSE.getNombre())
                 .empleado(EMPLEADO_ENTITY.getNombre())
                 .medioPago("Efectivo")
+                .porcentajeComision(0.0)
                 .servicio(SERVICIO_RESPONSE)
                 .paqueteTuristico(null)
                 .build();

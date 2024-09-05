@@ -29,7 +29,7 @@ class VentaRepositoryTest {
         Optional<VentaEntity> venta = this.ventaRepository.findFirstByActivoTrueAndIdVenta(VALID_ID);
         assertTrue(venta.isPresent());
         assertEquals(true,venta.get().getActivo());
-        assertEquals(VALID_ID, venta.get().idVenta);
+        assertEquals(VALID_ID, venta.get().getIdVenta());
     }
 
     @Test
